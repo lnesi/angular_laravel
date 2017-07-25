@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+
+Route::group(['prefix' => 'ajax','middleware' => 'auth'],function(){
+	Route::get("/user",function(){
+		return Auth::user();
+	});
+
+	Route::resource("/partners",Partners::class,['except' => ['create', 'edit']]);
+});

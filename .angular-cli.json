@@ -6,12 +6,11 @@
   "apps": [
     {
       "root": "angular-src",
-      "outDir": "dist",
+      "outDir": "public/ng-dist",
       "assets": [
         "assets",
         "favicon.ico"
       ],
-      "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
