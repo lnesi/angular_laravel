@@ -135,7 +135,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */], __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__["a" /* DashboardComponent */], __WEBPACK_IMPORTED_MODULE_8__partners_partners_component__["a" /* PartnersComponent */]
+            __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */], __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__["a" /* DashboardComponent */], __WEBPACK_IMPORTED_MODULE_8__partners_partners_component__["a" /* PartnersComponent */], __WEBPACK_IMPORTED_MODULE_8__partners_partners_component__["b" /* ConfirmDelete */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -144,10 +144,13 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_material__["a" /* MdMenuModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_material__["b" /* MdToolbarModule */],
-            __WEBPACK_IMPORTED_MODULE_6__angular_material__["c" /* MdButtonModule */]
+            __WEBPACK_IMPORTED_MODULE_6__angular_material__["c" /* MdButtonModule */],
+            __WEBPACK_IMPORTED_MODULE_6__angular_material__["d" /* MdDialogModule */],
+            __WEBPACK_IMPORTED_MODULE_6__angular_material__["e" /* MdTableModule */]
         ],
         providers: [],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]],
+        entryComponents: [__WEBPACK_IMPORTED_MODULE_8__partners_partners_component__["b" /* ConfirmDelete */]]
     })
 ], AppModule);
 
@@ -247,7 +250,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../angular-src/app/partners/partners.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Partners</h1>\n<div>\n\tContent\n\n</div>"
+module.exports = "<h1>Partners</h1>\n<div>\n  <table class=\"table\">\n  <thead>\n  \t<tr>\n  \t\t<th>Name</th>\n  \t\t<th>Abbr</th>\n  \t\t<th></th>\n  \t</tr>\n  \t</thead>\n  \t<tbody>\n  \t<tr *ngFor=\"let item of dataList\">\n  \t\t<td>{{item.name}}</td>\n  \t\t<td>{{item.abbr}}</td>\n  \t\t<td>\n  \t\t\t<div class=\"btn-group btn-group-xs\">\n  \t\t\t\t<button type=\"button\" class=\"btn btn-default\"><i class='fa fa-fw fa-edit'></i> Edit</button>\n  \t\t\t\t<button (click)=\"delete()\" type=\"button\" class=\"btn btn-default\"><i class='fa fa-fw fa-trash'></i> Delete</button>\n  \t\t\t\t<button type=\"button\" class=\"btn btn-default\">Activate</button>\n  \t\t\t</div>\n  \t\t</td>\n  \t</tr>\n  \t</tbody>\n  </table>\n  <!-- Button trigger modal -->\n\n</div>\n"
 
 /***/ }),
 
@@ -256,29 +259,106 @@ module.exports = "<h1>Partners</h1>\n<div>\n\tContent\n\n</div>"
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_partner_service__ = __webpack_require__("../../../../../angular-src/app/services/partner.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__("../../../../../angular-src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("../../../material/@angular/material.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PartnersComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ConfirmDelete; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
 
 var PartnersComponent = (function () {
-    function PartnersComponent() {
+    function PartnersComponent(partnerService, app, dialog) {
+        this.partnerService = partnerService;
+        this.app = app;
+        this.dialog = dialog;
         this.title = "Partners Page";
+        this.dataList = null;
     }
+    PartnersComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.partnerService.getAll().then(function (data) { return _this.dataList = data; });
+    };
+    PartnersComponent.prototype.delete = function () {
+        console.log("deleting");
+        this.dialog.open(ConfirmDelete);
+    };
     return PartnersComponent;
 }());
 PartnersComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'app-root',
         template: __webpack_require__("../../../../../angular-src/app/partners/partners.component.html"),
-        styles: [__webpack_require__("../../../../../angular-src/app/partners/partners.component.css")]
-    })
+        styles: [__webpack_require__("../../../../../angular-src/app/partners/partners.component.css")],
+        providers: [__WEBPACK_IMPORTED_MODULE_1__services_partner_service__["a" /* PartnerService */]]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_partner_service__["a" /* PartnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_partner_service__["a" /* PartnerService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["f" /* MdDialog */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["f" /* MdDialog */]) === "function" && _c || Object])
 ], PartnersComponent);
 
+var ConfirmDelete = (function () {
+    function ConfirmDelete() {
+    }
+    return ConfirmDelete;
+}());
+ConfirmDelete = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'confirm-delete',
+        template: "<p> Hi, I'm a dialog! </p>",
+    })
+], ConfirmDelete);
+
+var _a, _b, _c;
 //# sourceMappingURL=partners.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../angular-src/app/services/partner.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/add/operator/toPromise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PartnerService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var PartnerService = (function () {
+    function PartnerService(http) {
+        this.http = http;
+    }
+    PartnerService.prototype.getAll = function () {
+        return this.http.get("/ajax/partners").toPromise().then(function (response) { return response.json(); });
+    };
+    return PartnerService;
+}());
+PartnerService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["i" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+], PartnerService);
+
+var _a;
+//# sourceMappingURL=partner.service.js.map
 
 /***/ }),
 

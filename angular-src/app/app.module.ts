@@ -5,10 +5,10 @@ import { AppComponent } from './app.component';
 import { HttpModule }    from '@angular/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdMenuModule, MdToolbarModule, MdButtonModule } from '@angular/material';
+import { MdMenuModule, MdToolbarModule, MdButtonModule,MdDialogModule,MdTableModule } from '@angular/material';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PartnersComponent } from './partners/partners.component';
+import { PartnersComponent,ConfirmDelete } from './partners/partners.component';
 
 
 
@@ -19,7 +19,7 @@ var routes=[
 
 @NgModule({
   declarations: [
-    AppComponent,DashboardComponent,PartnersComponent
+    AppComponent,DashboardComponent,PartnersComponent,ConfirmDelete
 
   ],
   imports: [
@@ -29,9 +29,12 @@ var routes=[
     BrowserAnimationsModule,
     MdMenuModule,
     MdToolbarModule,
-    MdButtonModule
+    MdButtonModule,
+    MdDialogModule,
+    MdTableModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[ConfirmDelete]
 })
 export class AppModule { }

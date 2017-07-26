@@ -1,5 +1,27 @@
 <h1>Partners</h1>
 <div>
-	Content
+  <table class="table">
+  <thead>
+  	<tr>
+  		<th>Name</th>
+  		<th>Abbr</th>
+  		<th></th>
+  	</tr>
+  	</thead>
+  	<tbody>
+  	<tr *ngFor="let item of dataList">
+  		<td>{{item.name}}</td>
+  		<td>{{item.abbr}}</td>
+  		<td>
+  			<div class="btn-group btn-group-xs">
+  				<button type="button" class="btn btn-default"><i class='fa fa-fw fa-edit'></i> Edit</button>
+  				<button (click)="delete()" type="button" class="btn btn-default"><i class='fa fa-fw fa-trash'></i> Delete</button>
+  				<button type="button" class="btn btn-default">Activate</button>
+  			</div>
+  		</td>
+  	</tr>
+  	</tbody>
+  </table>
+  <!-- Button trigger modal -->
 
 </div>
