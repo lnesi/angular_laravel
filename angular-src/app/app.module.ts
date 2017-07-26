@@ -5,22 +5,39 @@ import { AppComponent } from './app.component';
 import { HttpModule }    from '@angular/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdMenuModule, MdToolbarModule, MdButtonModule,MdDialogModule,MdTableModule } from '@angular/material';
+import {  MdMenuModule, 
+          MdToolbarModule, 
+          MdButtonModule,
+          MdDialogModule,
+          MdTableModule,
+          MdSlideToggleModule,
+          MdIconModule,
+          MdCheckboxModule,
+          MdProgressBarModule,
+          MdSnackBarModule,
+          MdInputModule
+        } from '@angular/material';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PartnersComponent,ConfirmDelete } from './partners/partners.component';
+import { PartnersComponent , AddPartnerComponent } from './partners/partners.component';
+
+import {ConfirmDialog} from "./objects/MasterList"
 
 
 
 var routes=[
       { path: '', component: DashboardComponent },
-      { path: 'partners', component: PartnersComponent }
+      { path: 'partners', component: PartnersComponent },
+      { path: 'partners/add', component: AddPartnerComponent }
     ];
 
 @NgModule({
   declarations: [
-    AppComponent,DashboardComponent,PartnersComponent,ConfirmDelete
-
+    AppComponent,
+    DashboardComponent,
+    PartnersComponent,
+    AddPartnerComponent,
+    ConfirmDialog
   ],
   imports: [
     BrowserModule,
@@ -31,10 +48,16 @@ var routes=[
     MdToolbarModule,
     MdButtonModule,
     MdDialogModule,
-    MdTableModule
+    MdTableModule,
+    MdSlideToggleModule,
+    MdIconModule,
+    MdCheckboxModule,
+    MdProgressBarModule,
+    MdSnackBarModule,
+    MdInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[ConfirmDelete]
+  entryComponents:[ConfirmDialog]
 })
 export class AppModule { }

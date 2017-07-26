@@ -9,9 +9,10 @@
 		<span class="example-fill-remaining-space"></span>
 		<button md-button [mdMenuTriggerFor]="userMenu" >{{currentUser.name}}</button>
 		<md-menu #userMenu="mdMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
-  		  <a md-menu-item (click)="logout()" > Logout </a>
+  		  <a md-menu-item (click)="logout()" ><md-icon>exit_to_app</md-icon> Logout </a>
 		</md-menu>
 	</md-toolbar>
 </nav>
-
+<div class="container">
   <router-outlet></router-outlet>
+</div>

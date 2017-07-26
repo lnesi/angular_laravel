@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Partner;
-class Partners extends Controller
+class PartnersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,8 +37,7 @@ class Partners extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         //
         return Partner::findOrFail($id);
     }
@@ -52,9 +51,20 @@ class Partners extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         //
+        $p=Partner::findOrFail($id);
+        dd($request->input());
+        $p->fill($request->input());
+        $p->save();
+        return $p;
+    }
+
+    public function toggle(Request $request, $id){
+        $p=Partner::findOrFail($id);
+        $p->active=$request->input('active');
+        $p->save();
+        return $p;
     }
 
     /**
@@ -65,6 +75,8 @@ class Partners extends Controller
      */
     public function destroy($id)
     {
-        //
+        $p=Partner::findOrFail($id);
+        $p->delete();
+        return Partner::get();
     }
 }

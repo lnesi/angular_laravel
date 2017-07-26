@@ -3,4 +3,5 @@ export class Partner{
 	name:string
 	url:string
 	abbr:string
+	active:boolean
 }

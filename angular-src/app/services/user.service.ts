@@ -18,4 +18,6 @@ export class UserService{
 	logout():Promise<any>{
 		return this.http.post('/logout',{}).toPromise().then();
 	}
+
+	
 }

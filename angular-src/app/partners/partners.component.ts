@@ -1,38 +1,52 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { 
+  Component, 
+  AfterViewInit,
+  ViewChild,
+  AfterViewChecked,
+  ChangeDetectorRef 
+} from '@angular/core';
+
+import { 
+  MdDialog, 
+  MdSlideToggleModule,
+  MdIcon,
+  MdCheckbox,
+  MdProgressBar,
+  MdSnackBar,
+  MdInputContainer, 
+} from '@angular/material';
+
 import { PartnerService } from "../services/partner.service";
 import { Partner } from "../models/Partner";
-import {AppComponent} from "../app.component"
-import {MdDialog,MdTable} from '@angular/material';
-
+import { AppComponent } from "../app.component"
+import {MasterList} from "../objects/MasterList";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'partners.component.html',
-  styleUrls: ['partners.component.css'],
+  styleUrls: ['partners.component.scss'],
   providers: [PartnerService]
 })
 
-export class PartnersComponent implements AfterViewInit{
-  title = "Partners Page";
-  dataList: Partner[] = null
-  
-  constructor(private partnerService: PartnerService,
-              private app:AppComponent,
-              public dialog: MdDialog){}
+export class PartnersComponent extends MasterList  {
+   title = "Partners Page";
 
-  ngAfterViewInit(){
-
-    this.partnerService.getAll().then(data=>this.dataList=data);
-  }
-
-  delete(){
-    console.log("deleting");
-    this.dialog.open(ConfirmDelete);
+  constructor(
+    partnerService: PartnerService,
+    app: AppComponent,
+    cdRef : ChangeDetectorRef,
+    dialog: MdDialog,
+    snackBar: MdSnackBar) {
+    super(app,partnerService,cdRef,dialog,snackBar);
   }
 }
 
 @Component({
-  selector: 'confirm-delete',
-  template:`<p> Hi, I'm a dialog! </p>`,
+  selector: 'app-root',
+  templateUrl: 'addpartner.component.html',
+  styleUrls: ['partners.component.scss'],
+  providers: [PartnerService]
 })
-export class ConfirmDelete {}
+export class AddPartnerComponent{
+
+}

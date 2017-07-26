@@ -1,10 +1,14 @@
 
+@import "~@angular/material/prebuilt-themes/deeppurple-amber";
 
 body{
 	margin:0;
+	font-family: 'Source Sans Pro', sans-serif;
 }
 .container{
 	font-family: 'Source Sans Pro', sans-serif;
+	margin:10px;
+	padding:10px;
 }
 
 header.navbar{

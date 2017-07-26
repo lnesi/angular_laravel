@@ -1,6 +1,7 @@
-<h1>Partners</h1>
-<div>
-  <table class="table">
+<h1>Partners <a href="#/partners/add" md-button ><md-icon class="actionsIcon">add</md-icon>add</a></h1>
+
+<md-progress-bar  *ngIf="loading" mode="indeterminate"></md-progress-bar>
+  <table  *ngIf="!loading" class="table" cellspacing="0" cellpadding="0">
   <thead>
   	<tr>
   		<th>Name</th>
@@ -13,15 +14,13 @@
   		<td>{{item.name}}</td>
   		<td>{{item.abbr}}</td>
   		<td>
-  			<div class="btn-group btn-group-xs">
-  				<button type="button" class="btn btn-default"><i class='fa fa-fw fa-edit'></i> Edit</button>
-  				<button (click)="delete()" type="button" class="btn btn-default"><i class='fa fa-fw fa-trash'></i> Delete</button>
-  				<button type="button" class="btn btn-default">Activate</button>
-  			</div>
+          <button md-button ><md-icon class="actionsIcon">edit</md-icon></button>
+  				<button md-button (click)="delete(item)"><md-icon>delete</md-icon></button>
+  				<md-slide-toggle [checked]="item.active" (change)="toggleActive(item)"></md-slide-toggle>
   		</td>
   	</tr>
   	</tbody>
   </table>
   <!-- Button trigger modal -->
 
-</div>
+
