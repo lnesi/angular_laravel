@@ -24,4 +24,5 @@ Route::group(['prefix' => 'ajax','middleware' => 'auth'],function(){
 	});
 	Route::post("/partners/{partner_id}/toggle","PartnersController@toggle");
 	Route::resource("/partners",PartnersController::class,['except' => ['create', 'edit']]);
+	Route::resource("/users",UsersController::class,['except' => ['create', 'edit']]);
 });

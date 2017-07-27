@@ -15,7 +15,7 @@
     <md-error *ngIf="urlFormControl.hasError('required')">Email is <strong>required</strong></md-error>
     <md-error *ngIf="urlFormControl.hasError('pattern')">Needs to be a valid URL</md-error>
   </md-input-container>
-  <a href="#/partners" md-button>
+  <a routerLink="/partners" md-button>
     <md-icon class="actionsIcon">arrow_back</md-icon> Back</a>
   <button class="pull-right" md-button (click)="validate()">
     <md-icon class="actionsIcon">save</md-icon> Save</button>

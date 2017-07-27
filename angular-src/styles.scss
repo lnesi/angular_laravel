@@ -17,3 +17,42 @@ header.navbar{
 .pull-right{
 	float:right;
 }
+
+table{
+	width: 100%;
+	td {
+		border-bottom:1px solid #ccc;
+	}
+	th{
+		text-align: left;
+		font-weight: bold;
+	}
+}
+
+.full-width{
+	width:100%;
+}
+
+.actionsIcon{
+	color:#333;
+}
+
+.form-control{
+	margin-bottom:10px;
+}
+.form-control-select{
+	margin-bottom:20px;
+}
+.text-left{
+	text-align:left;
+}
+.text-right{
+	text-align:right;
+}
+.text-center{
+	text-align:center;
+}
+.select-error{
+	font-size: 75%;
+	margin-top:-10px;
+}

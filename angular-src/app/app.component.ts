@@ -1,27 +1,27 @@
 import { Component } from '@angular/core';
 import { User } from './models/User';
-import { UserService } from "./services/user.service";
+import { AuthService } from "./services/auth.service";
 import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [UserService]
+  providers: [AuthService]
 })
 export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentUser();
   }
 
-  constructor(private userService: UserService) {}
+  constructor(private authService: AuthService) {}
 
   getCurrentUser() {
-    this.userService.getCurrent().then(user => this.currentUser = user);
+    this.authService.getCurrent().then(user => this.currentUser = user);
   }
 
   logout() {
-    this.userService.logout().then(response => {
+    this.authService.logout().then(response => {
       window.location.href = "/";
     });
   }

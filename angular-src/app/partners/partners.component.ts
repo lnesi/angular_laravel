@@ -24,7 +24,6 @@ import { MasterList } from "../objects/MasterList.component";
 
 
 @Component({
-  selector: 'app-root',
   templateUrl: 'partners.component.html',
   styleUrls: ['partners.component.scss'],
   providers: [PartnerService]
