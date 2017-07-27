@@ -62,14 +62,14 @@ export class AddUserComponent implements AfterViewInit{
 
   loading:boolean=false;
   user:User
-  
+  inihack:boolean=false
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required,Validators.pattern(EMAIL_REGEX)]);
   partnerFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required]);
   passwordConfirmFormControl = new FormControl('', [Validators.required,PasswordConfirmation(this.passwordFormControl)]);
   partnerList:Partner[] = null;
- 
+  
 
   constructor(private partnerService:PartnerService,private userService:UserService,public snackBar:MdSnackBar,public router:Router,private cdRef:ChangeDetectorRef){
     this.user=new User();
@@ -96,6 +96,11 @@ export class AddUserComponent implements AfterViewInit{
     return false;
   }
   validate(){
+    this.inihack=true;
+    if(!this.partnerFormControl.valid) {
+      this.inPartner._elementRef.nativeElement.classList.remove('ng-valid','ng-untouched');
+      this.inPartner._elementRef.nativeElement.classList.add('ng-invalid','mat-input-invalid','ng-touched');
+    } 
     
     if (this.nameFormControl.valid && this.emailFormControl.valid && this.partnerFormControl.valid && this.passwordFormControl.valid && this.passwordConfirmFormControl.valid) {
       if(this.strengthChecker.getStrengthIndexAndColor(this.user.password).idx>=3){
