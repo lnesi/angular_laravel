@@ -54,7 +54,6 @@ class PartnersController extends Controller
     public function update(Request $request, $id){
         //
         $p=Partner::findOrFail($id);
-        dd($request->input());
         $p->fill($request->input());
         $p->save();
         return $p;

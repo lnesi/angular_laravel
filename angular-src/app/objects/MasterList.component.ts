@@ -38,9 +38,7 @@ export class MasterList implements AfterViewInit, AfterViewChecked {
         if (item.active == 0) {
           this.doDelete(item);
         } else {
-          this.snackBar.open("You cannot delete while active.", "OK", {
-            duration: 2000,
-          });
+          this.snackBar.open("You cannot delete while active.", null, { duration: 2000 });
         }
       }
     });
@@ -66,14 +64,14 @@ export class MasterList implements AfterViewInit, AfterViewChecked {
     dialogRef.afterClosed().subscribe(result => {
       if (result == 0) {
         item.active = 1 - item.active;
-      }else{
+      } else {
         this.doUpdate(item);
       }
     });
 
   }
 
-  doUpdate(item){
+  doUpdate(item) {
     this.loading = true;
     this.service.toggle(item).then(data => {
       this.loading = false;

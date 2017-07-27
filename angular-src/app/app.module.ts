@@ -1,35 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule }   from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { HttpModule }    from '@angular/http';
+import { HttpModule } from '@angular/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {  MdMenuModule, 
-          MdToolbarModule, 
-          MdButtonModule,
-          MdDialogModule,
-          MdTableModule,
-          MdSlideToggleModule,
-          MdIconModule,
-          MdCheckboxModule,
-          MdProgressBarModule,
-          MdSnackBarModule,
-          MdInputModule
-        } from '@angular/material';
-
+import {
+  MdMenuModule,
+  MdToolbarModule,
+  MdButtonModule,
+  MdDialogModule,
+  MdTableModule,
+  MdSlideToggleModule,
+  MdIconModule,
+  MdCheckboxModule,
+  MdProgressBarModule,
+  MdSnackBarModule,
+  MdInputModule
+} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PartnersComponent , AddPartnerComponent } from './partners/partners.component';
+import { PartnersComponent, AddPartnerComponent, EditPartnerComponent } from './partners/partners.component';
 
-import {ConfirmDialog} from "./objects/MasterList"
+import { ConfirmDialog } from "./objects/MasterList.component"
 
 
 
-var routes=[
-      { path: '', component: DashboardComponent },
-      { path: 'partners', component: PartnersComponent },
-      { path: 'partners/add', component: AddPartnerComponent }
-    ];
+var routes: Routes = [
+  { path: '', component: DashboardComponent },
+  { path: 'partners', component: PartnersComponent },
+  { path: 'partners/add', component: AddPartnerComponent },
+  { path: 'partners/:id', component: EditPartnerComponent }
+];
 
 @NgModule({
   declarations: [
@@ -37,12 +39,15 @@ var routes=[
     DashboardComponent,
     PartnersComponent,
     AddPartnerComponent,
+    EditPartnerComponent,
     ConfirmDialog
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot(routes,{ useHash: true }),
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes, { useHash: true }),
     BrowserAnimationsModule,
     MdMenuModule,
     MdToolbarModule,
@@ -58,6 +63,6 @@ var routes=[
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[ConfirmDialog]
+  entryComponents: [ConfirmDialog]
 })
-export class AppModule { }
+export class AppModule {}

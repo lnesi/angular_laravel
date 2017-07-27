@@ -1,26 +1,33 @@
-<h1>Partners <a href="#/partners/add" md-button ><md-icon class="actionsIcon">add</md-icon>add</a></h1>
-
-<md-progress-bar  *ngIf="loading" mode="indeterminate"></md-progress-bar>
-  <table  *ngIf="!loading" class="table" cellspacing="0" cellpadding="0">
+<h1>Partners <a routerLink="/partners/add" md-button ><md-icon class="actionsIcon">add</md-icon></a></h1>
+<md-progress-bar *ngIf="loading" mode="indeterminate"></md-progress-bar>
+<table *ngIf="!loading" class="table" cellspacing="0" cellpadding="0">
   <thead>
-  	<tr>
-  		<th>Name</th>
-  		<th>Abbr</th>
-  		<th></th>
-  	</tr>
-  	</thead>
-  	<tbody>
-  	<tr *ngFor="let item of dataList">
-  		<td>{{item.name}}</td>
-  		<td>{{item.abbr}}</td>
-  		<td>
-          <button md-button ><md-icon class="actionsIcon">edit</md-icon></button>
-  				<button md-button (click)="delete(item)"><md-icon>delete</md-icon></button>
-  				<md-slide-toggle [checked]="item.active" (change)="toggleActive(item)"></md-slide-toggle>
-  		</td>
-  	</tr>
-  	</tbody>
-  </table>
-  <!-- Button trigger modal -->
-
-
+    <tr>
+      <th width="50%">Name</th>
+      <th width="20%">Abbr</th>
+      <th width="10%">Edit</th>
+      <th width="10%">Delete</th>
+      <th width="10%">Active(Y/N)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of dataList">
+      <td>{{item.name}}</td>
+      <td>{{item.abbr}}</td>
+      <td>
+        <a md-button routerLink="/partners/{{item.id}}">
+          <md-icon class="actionsIcon">edit</md-icon>
+        </a>
+      </td>
+      <td>
+        <button md-button (click)="delete(item)">
+          <md-icon>delete</md-icon>
+        </button>
+      </td>
+      <td>
+        <md-slide-toggle [checked]="item.active" (change)="toggleActive(item)"> </md-slide-toggle>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- Button trigger modal -->

@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../angular-src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav>\n\t<md-toolbar color=\"primary\">\n  \t\t<span routerLink=\"/\" class=\"appName\">App</span>\n  \t\t<button md-button [mdMenuTriggerFor]=\"appMenu\">Menu</button>\n  \t\t<md-menu #appMenu=\"mdMenu\" xPosition=\"after\" yPosition=\"below\" [overlapTrigger]=\"false\">\n  \t\t  <a routerLink=\"/partners\" md-menu-item> Partners </a>\n\t\t</md-menu>\n\t\t<span class=\"example-fill-remaining-space\"></span>\n\t\t<button md-button [mdMenuTriggerFor]=\"userMenu\" >{{currentUser.name}}</button>\n\t\t<md-menu #userMenu=\"mdMenu\" xPosition=\"before\" yPosition=\"below\" [overlapTrigger]=\"false\">\n  \t\t  <a md-menu-item (click)=\"logout()\" ><md-icon>exit_to_app</md-icon> Logout </a>\n\t\t</md-menu>\n\t</md-toolbar>\n</nav>\n<div class=\"container\">\n  <router-outlet></router-outlet>\n</div>"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav>\n  <md-toolbar color=\"primary\">\n    <span routerLink=\"/\" class=\"appName\">App</span>\n    <button md-button [mdMenuTriggerFor]=\"appMenu\">\n      <md-icon>settings</md-icon>\n    </button>\n    <md-menu #appMenu=\"mdMenu\" xPosition=\"after\" yPosition=\"below\" [overlapTrigger]=\"false\">\n      <a routerLink=\"/partners\" md-menu-item> Partners </a>\n      <a routerLink=\"/users\" md-menu-item> Users </a>\n    </md-menu>\n    <span class=\"example-fill-remaining-space\"></span>\n    <button md-button [mdMenuTriggerFor]=\"userMenu\">\n      <md-icon>person</md-icon> {{currentUser.name}}</button>\n    <md-menu #userMenu=\"mdMenu\" xPosition=\"before\" yPosition=\"below\" [overlapTrigger]=\"false\">\n      <a md-menu-item (click)=\"logout()\">\n        <md-icon>exit_to_app</md-icon> Logout </a>\n    </md-menu>\n  </md-toolbar>\n</nav>\n<div class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -70,7 +70,6 @@ var AppComponent = (function () {
     AppComponent.prototype.getCurrentUser = function () {
         var _this = this;
         this.userService.getCurrent().then(function (user) { return _this.currentUser = user; });
-        //this.currentUser.then(user=>this.user=user);
     };
     AppComponent.prototype.logout = function () {
         this.userService.logout().then(function (response) {
@@ -105,9 +104,10 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_material__ = __webpack_require__("../../../material/@angular/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__ = __webpack_require__("../../../../../angular-src/app/dashboard/dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__partners_partners_component__ = __webpack_require__("../../../../../angular-src/app/partners/partners.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__objects_MasterList__ = __webpack_require__("../../../../../angular-src/app/objects/MasterList.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__ = __webpack_require__("../../../../../angular-src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__ = __webpack_require__("../../../../../angular-src/app/partners/partners.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__objects_MasterList_component__ = __webpack_require__("../../../../../angular-src/app/objects/MasterList.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -125,10 +125,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var routes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__["a" /* DashboardComponent */] },
-    { path: 'partners', component: __WEBPACK_IMPORTED_MODULE_8__partners_partners_component__["a" /* PartnersComponent */] },
-    { path: 'partners/add', component: __WEBPACK_IMPORTED_MODULE_8__partners_partners_component__["b" /* AddPartnerComponent */] }
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__["a" /* DashboardComponent */] },
+    { path: 'partners', component: __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["a" /* PartnersComponent */] },
+    { path: 'partners/add', component: __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["b" /* AddPartnerComponent */] },
+    { path: 'partners/:id', component: __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["c" /* EditPartnerComponent */] }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -139,14 +141,17 @@ AppModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__["a" /* DashboardComponent */],
-            __WEBPACK_IMPORTED_MODULE_8__partners_partners_component__["a" /* PartnersComponent */],
-            __WEBPACK_IMPORTED_MODULE_8__partners_partners_component__["b" /* AddPartnerComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__objects_MasterList__["a" /* ConfirmDialog */]
+            __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__["a" /* DashboardComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["a" /* PartnersComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["b" /* AddPartnerComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["c" /* EditPartnerComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__objects_MasterList_component__["a" /* ConfirmDialog */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_7__angular_forms__["a" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_7__angular_forms__["b" /* ReactiveFormsModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forRoot(routes, { useHash: true }),
             __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_material__["a" /* MdMenuModule */],
@@ -163,7 +168,7 @@ AppModule = __decorate([
         ],
         providers: [],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]],
-        entryComponents: [__WEBPACK_IMPORTED_MODULE_9__objects_MasterList__["a" /* ConfirmDialog */]]
+        entryComponents: [__WEBPACK_IMPORTED_MODULE_10__objects_MasterList_component__["a" /* ConfirmDialog */]]
     })
 ], AppModule);
 
@@ -227,6 +232,27 @@ DashboardComponent = __decorate([
 
 /***/ }),
 
+/***/ "../../../../../angular-src/app/models/Partner.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Partner; });
+var Partner = (function () {
+    function Partner(name, abbr, url) {
+        if (name === void 0) { name = ""; }
+        if (abbr === void 0) { abbr = ""; }
+        if (url === void 0) { url = ""; }
+        this.name = name;
+        this.abbr = abbr;
+        this.url = url;
+    }
+    return Partner;
+}());
+
+//# sourceMappingURL=Partner.js.map
+
+/***/ }),
+
 /***/ "../../../../../angular-src/app/models/User.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -242,7 +268,7 @@ var User = (function () {
 
 /***/ }),
 
-/***/ "../../../../../angular-src/app/objects/MasterList.ts":
+/***/ "../../../../../angular-src/app/objects/MasterList.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -297,9 +323,7 @@ var MasterList = (function () {
                     _this.doDelete(item);
                 }
                 else {
-                    _this.snackBar.open("You cannot delete while active.", "OK", {
-                        duration: 2000,
-                    });
+                    _this.snackBar.open("You cannot delete while active.", null, { duration: 2000 });
                 }
             }
         });
@@ -357,7 +381,7 @@ ConfirmDialog = __decorate([
     __metadata("design:paramtypes", [Object])
 ], ConfirmDialog);
 
-//# sourceMappingURL=MasterList.js.map
+//# sourceMappingURL=MasterList.component.js.map
 
 /***/ }),
 
@@ -368,17 +392,17 @@ module.exports = "<h2>{{data.title}}</h2>\n<p> {{data.message}} </p>\n<br>\n<but
 
 /***/ }),
 
-/***/ "../../../../../angular-src/app/partners/addpartner.component.html":
+/***/ "../../../../../angular-src/app/partners/partnerform.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Add partner</h1>\n<form>\n\t<md-input-container class=\"full-width\">\n\t  <input mdInput placeholder=\"Name\" value=\"\">\n\t</md-input-container>\n\n\t<md-input-container >\n\t  <input mdInput placeholder=\"Abbr\" value=\"\">\n\t</md-input-container>\n\n\t<md-input-container class=\"full-width\">\n\t  <input mdInput placeholder=\"URL\" value=\"\">\n\t</md-input-container>\n\n</form>\n\n<a href=\"#/partners\" md-button ><md-icon class=\"actionsIcon\">cancel</md-icon> Cancel</a>\n<button  md-button ><md-icon class=\"actionsIcon\">save</md-icon> Save</button>"
+module.exports = "<h1>{{TITLE}}</h1>\n<md-progress-bar *ngIf=\"loading\" mode=\"indeterminate\"></md-progress-bar>\n<form *ngIf=\"!loading\">\n  <md-input-container class=\"form-control full-width\">\n    <input mdInput #inName placeholder=\"Name\" type=\"text\" required=\"required\" [(ngModel)]=\"partner.name\" [formControl]=\"nameFormControl\">\n    <md-error *ngIf=\"nameFormControl.hasError('required')\">Email is <strong>required</strong></md-error>\n  </md-input-container>\n  <md-input-container class=\"form-control\">\n    <input mdInput #inAbbr placeholder=\"Abbr\" type=\"text\" maxlength=\"5\" required=\"required\" [(ngModel)]=\"partner.abbr\" [formControl]=\"abbrFormControl\">\n    <md-hint align=\"end\">{{inAbbr.value.length}} / 5</md-hint>\n    <md-error *ngIf=\"abbrFormControl.hasError('required')\">Email is <strong>required</strong></md-error>\n  </md-input-container>\n  <md-input-container class=\"form-control full-width\">\n    <input mdInput #inUrl placeholder=\"URL (https)\" type=\"url\" required=\"required\" [(ngModel)]=\"partner.url\" [formControl]=\"urlFormControl\">\n    <md-error *ngIf=\"urlFormControl.hasError('required')\">Email is <strong>required</strong></md-error>\n    <md-error *ngIf=\"urlFormControl.hasError('pattern')\">Needs to be a valid URL</md-error>\n  </md-input-container>\n  <a href=\"#/partners\" md-button>\n    <md-icon class=\"actionsIcon\">arrow_back</md-icon> Back</a>\n  <button class=\"pull-right\" md-button (click)=\"validate()\">\n    <md-icon class=\"actionsIcon\">save</md-icon> Save</button>\n</form>\n"
 
 /***/ }),
 
 /***/ "../../../../../angular-src/app/partners/partners.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Partners <a href=\"#/partners/add\" md-button ><md-icon class=\"actionsIcon\">add</md-icon>add</a></h1>\n\n<md-progress-bar  *ngIf=\"loading\" mode=\"indeterminate\"></md-progress-bar>\n  <table  *ngIf=\"!loading\" class=\"table\" cellspacing=\"0\" cellpadding=\"0\">\n  <thead>\n  \t<tr>\n  \t\t<th>Name</th>\n  \t\t<th>Abbr</th>\n  \t\t<th></th>\n  \t</tr>\n  \t</thead>\n  \t<tbody>\n  \t<tr *ngFor=\"let item of dataList\">\n  \t\t<td>{{item.name}}</td>\n  \t\t<td>{{item.abbr}}</td>\n  \t\t<td>\n          <button md-button ><md-icon class=\"actionsIcon\">edit</md-icon></button>\n  \t\t\t\t<button md-button (click)=\"delete(item)\"><md-icon>delete</md-icon></button>\n  \t\t\t\t<md-slide-toggle [checked]=\"item.active\" (change)=\"toggleActive(item)\"></md-slide-toggle>\n  \t\t</td>\n  \t</tr>\n  \t</tbody>\n  </table>\n  <!-- Button trigger modal -->\n\n\n"
+module.exports = "<h1>Partners <a routerLink=\"/partners/add\" md-button ><md-icon class=\"actionsIcon\">add</md-icon></a></h1>\n<md-progress-bar *ngIf=\"loading\" mode=\"indeterminate\"></md-progress-bar>\n<table *ngIf=\"!loading\" class=\"table\" cellspacing=\"0\" cellpadding=\"0\">\n  <thead>\n    <tr>\n      <th width=\"50%\">Name</th>\n      <th width=\"20%\">Abbr</th>\n      <th width=\"10%\">Edit</th>\n      <th width=\"10%\">Delete</th>\n      <th width=\"10%\">Active(Y/N)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let item of dataList\">\n      <td>{{item.name}}</td>\n      <td>{{item.abbr}}</td>\n      <td>\n        <a md-button routerLink=\"/partners/{{item.id}}\">\n          <md-icon class=\"actionsIcon\">edit</md-icon>\n        </a>\n      </td>\n      <td>\n        <button md-button (click)=\"delete(item)\">\n          <md-icon>delete</md-icon>\n        </button>\n      </td>\n      <td>\n        <md-slide-toggle [checked]=\"item.active\" (change)=\"toggleActive(item)\"> </md-slide-toggle>\n      </td>\n    </tr>\n  </tbody>\n</table>\n<!-- Button trigger modal -->\n"
 
 /***/ }),
 
@@ -390,7 +414,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "table {\n  width: 100%; }\n  table td {\n    border-bottom: 1px solid #ccc; }\n  table th {\n    text-align: left;\n    font-weight: bold; }\n\n.actionsIcon {\n  color: #333; }\n\n.full-width {\n  width: 100%; }\n", ""]);
+exports.push([module.i, "table {\n  width: 100%; }\n  table td {\n    border-bottom: 1px solid #ccc; }\n  table th {\n    text-align: left;\n    font-weight: bold; }\n\n.actionsIcon {\n  color: #333; }\n\n.full-width {\n  width: 100%; }\n\n.form-control {\n  margin-bottom: 10px; }\n", ""]);
 
 // exports
 
@@ -406,11 +430,16 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/@angular/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_partner_service__ = __webpack_require__("../../../../../angular-src/app/services/partner.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__("../../../../../angular-src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_MasterList__ = __webpack_require__("../../../../../angular-src/app/objects/MasterList.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_partner_service__ = __webpack_require__("../../../../../angular-src/app/services/partner.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_Partner__ = __webpack_require__("../../../../../angular-src/app/models/Partner.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__("../../../../../angular-src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__objects_MasterList_component__ = __webpack_require__("../../../../../angular-src/app/objects/MasterList.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PartnersComponent; });
+/* unused harmony export BasePartnertAddEdit */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AddPartnerComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return EditPartnerComponent; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -435,6 +464,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 var PartnersComponent = (function (_super) {
     __extends(PartnersComponent, _super);
     function PartnersComponent(partnerService, app, cdRef, dialog, snackBar) {
@@ -443,32 +475,113 @@ var PartnersComponent = (function (_super) {
         return _this;
     }
     return PartnersComponent;
-}(__WEBPACK_IMPORTED_MODULE_4__objects_MasterList__["b" /* MasterList */]));
+}(__WEBPACK_IMPORTED_MODULE_7__objects_MasterList_component__["b" /* MasterList */]));
 PartnersComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'app-root',
         template: __webpack_require__("../../../../../angular-src/app/partners/partners.component.html"),
         styles: [__webpack_require__("../../../../../angular-src/app/partners/partners.component.scss")],
-        providers: [__WEBPACK_IMPORTED_MODULE_2__services_partner_service__["a" /* PartnerService */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_partner_service__["a" /* PartnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_partner_service__["a" /* PartnerService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* ChangeDetectorRef */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MdDialog */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MdDialog */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MdSnackBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MdSnackBar */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* ChangeDetectorRef */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MdDialog */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MdDialog */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MdSnackBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MdSnackBar */]) === "function" && _e || Object])
 ], PartnersComponent);
 
-var AddPartnerComponent = (function () {
-    function AddPartnerComponent() {
+var URL_REGEX = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+var BasePartnertAddEdit = (function () {
+    function BasePartnertAddEdit(snackBar, partnerService, router) {
+        this.snackBar = snackBar;
+        this.partnerService = partnerService;
+        this.router = router;
+        this.TITLE = "";
+        this.loading = true;
+        this.partner = null;
+        this.nameFormControl = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["i" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* Validators */].required]);
+        this.abbrFormControl = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["i" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* Validators */].required]);
+        this.urlFormControl = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["i" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* Validators */].pattern(URL_REGEX)]);
     }
-    return AddPartnerComponent;
+    BasePartnertAddEdit.prototype.save = function () { };
+    BasePartnertAddEdit.prototype.validate = function () {
+        if (this.nameFormControl.valid && this.abbrFormControl.valid && this.urlFormControl.valid) {
+            this.save();
+        }
+        else {
+            this.snackBar.open("Please complete the form before continue", null, { duration: 2000 });
+        }
+        ;
+    };
+    return BasePartnertAddEdit;
 }());
+
+var AddPartnerComponent = (function (_super) {
+    __extends(AddPartnerComponent, _super);
+    function AddPartnerComponent(snackBar, partnerService, router) {
+        var _this = _super.call(this, snackBar, partnerService, router) || this;
+        _this.partner = new __WEBPACK_IMPORTED_MODULE_5__models_Partner__["a" /* Partner */]();
+        _this.TITLE = "Add Partner";
+        _this.loading = false;
+        return _this;
+    }
+    AddPartnerComponent.prototype.save = function () {
+        var _this = this;
+        this.loading = true;
+        this.partnerService.store(this.partner).then(function (response) {
+            _this.loading = false;
+            _this.snackBar.open("The partners as been addded.", null, { duration: 2000 });
+            _this.router.navigate(['/partners']);
+        });
+    };
+    return AddPartnerComponent;
+}(BasePartnertAddEdit));
 AddPartnerComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'app-root',
-        template: __webpack_require__("../../../../../angular-src/app/partners/addpartner.component.html"),
+        template: __webpack_require__("../../../../../angular-src/app/partners/partnerform.component.html"),
         styles: [__webpack_require__("../../../../../angular-src/app/partners/partners.component.scss")],
-        providers: [__WEBPACK_IMPORTED_MODULE_2__services_partner_service__["a" /* PartnerService */]]
-    })
+        providers: [__WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */]]
+    }),
+    __metadata("design:paramtypes", [typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MdSnackBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MdSnackBar */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _h || Object])
 ], AddPartnerComponent);
 
-var _a, _b, _c, _d, _e;
+var EditPartnerComponent = (function (_super) {
+    __extends(EditPartnerComponent, _super);
+    function EditPartnerComponent(snackBar, partnerService, router, route) {
+        var _this = _super.call(this, snackBar, partnerService, router) || this;
+        _this.route = route;
+        _this.TITLE = "Edit Partner";
+        _this.loading = true;
+        return _this;
+    }
+    EditPartnerComponent.prototype.save = function () {
+        var _this = this;
+        this.loading = true;
+        this.partnerService.update(this.partner).then(function (response) {
+            _this.loading = false;
+            _this.partner = response;
+            _this.snackBar.open("The partners as been updated.", null, { duration: 2000 });
+        });
+    };
+    EditPartnerComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.partnerService.get(+params['id']).then(function (response) {
+                _this.loading = false;
+                _this.partner = response;
+            });
+        });
+    };
+    return EditPartnerComponent;
+}(BasePartnertAddEdit));
+EditPartnerComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'app-root',
+        template: __webpack_require__("../../../../../angular-src/app/partners/partnerform.component.html"),
+        styles: [__webpack_require__("../../../../../angular-src/app/partners/partners.component.scss")],
+        providers: [__WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */]]
+    }),
+    __metadata("design:paramtypes", [typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MdSnackBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MdSnackBar */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */]) === "function" && _m || Object])
+], EditPartnerComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
 //# sourceMappingURL=partners.component.js.map
 
 /***/ }),
@@ -506,6 +619,15 @@ var PartnerService = (function () {
     };
     PartnerService.prototype.toggle = function (partner) {
         return this.http.post("/ajax/partners/" + partner.id + "/toggle", partner).toPromise().then(function (response) { return response.json(); });
+    };
+    PartnerService.prototype.store = function (partner) {
+        return this.http.post("/ajax/partners", partner).toPromise().then(function (response) { return response.json(); });
+    };
+    PartnerService.prototype.get = function (id) {
+        return this.http.get("/ajax/partners/" + id).toPromise().then(function (response) { return response.json(); });
+    };
+    PartnerService.prototype.update = function (partner) {
+        return this.http.patch("/ajax/partners/" + partner.id, partner).toPromise().then(function (response) { return response.json(); });
     };
     return PartnerService;
 }());

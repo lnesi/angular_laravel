@@ -1,0 +1,22 @@
+<h1>{{TITLE}}</h1>
+<md-progress-bar *ngIf="loading" mode="indeterminate"></md-progress-bar>
+<form *ngIf="!loading">
+  <md-input-container class="form-control full-width">
+    <input mdInput #inName placeholder="Name" type="text" required="required" [(ngModel)]="partner.name" [formControl]="nameFormControl">
+    <md-error *ngIf="nameFormControl.hasError('required')">Email is <strong>required</strong></md-error>
+  </md-input-container>
+  <md-input-container class="form-control">
+    <input mdInput #inAbbr placeholder="Abbr" type="text" maxlength="5" required="required" [(ngModel)]="partner.abbr" [formControl]="abbrFormControl">
+    <md-hint align="end">{{inAbbr.value.length}} / 5</md-hint>
+    <md-error *ngIf="abbrFormControl.hasError('required')">Email is <strong>required</strong></md-error>
+  </md-input-container>
+  <md-input-container class="form-control full-width">
+    <input mdInput #inUrl placeholder="URL (https)" type="url" required="required" [(ngModel)]="partner.url" [formControl]="urlFormControl">
+    <md-error *ngIf="urlFormControl.hasError('required')">Email is <strong>required</strong></md-error>
+    <md-error *ngIf="urlFormControl.hasError('pattern')">Needs to be a valid URL</md-error>
+  </md-input-container>
+  <a href="#/partners" md-button>
+    <md-icon class="actionsIcon">arrow_back</md-icon> Back</a>
+  <button class="pull-right" md-button (click)="validate()">
+    <md-icon class="actionsIcon">save</md-icon> Save</button>
+</form>
