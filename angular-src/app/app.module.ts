@@ -21,7 +21,7 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PartnersComponent, AddPartnerComponent, EditPartnerComponent } from './partners/partners.component';
-
+import { PageNotFoundComponent } from './common/pagenotfound.component';
 import { ConfirmDialog } from "./objects/MasterList.component"
 
 
@@ -30,7 +30,8 @@ var routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'partners', component: PartnersComponent },
   { path: 'partners/add', component: AddPartnerComponent },
-  { path: 'partners/:id', component: EditPartnerComponent }
+  { path: 'partners/:id', component: EditPartnerComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -40,6 +41,7 @@ var routes: Routes = [
     PartnersComponent,
     AddPartnerComponent,
     EditPartnerComponent,
+    PageNotFoundComponent,
     ConfirmDialog
   ],
   imports: [

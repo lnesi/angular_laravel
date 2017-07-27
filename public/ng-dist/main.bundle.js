@@ -107,7 +107,8 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__ = __webpack_require__("../../../../../angular-src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__ = __webpack_require__("../../../../../angular-src/app/partners/partners.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__objects_MasterList_component__ = __webpack_require__("../../../../../angular-src/app/objects/MasterList.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__common_pagenotfound_component__ = __webpack_require__("../../../../../angular-src/app/common/pagenotfound.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__objects_MasterList_component__ = __webpack_require__("../../../../../angular-src/app/objects/MasterList.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -126,11 +127,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var routes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__["a" /* DashboardComponent */] },
     { path: 'partners', component: __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["a" /* PartnersComponent */] },
     { path: 'partners/add', component: __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["b" /* AddPartnerComponent */] },
-    { path: 'partners/:id', component: __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["c" /* EditPartnerComponent */] }
+    { path: 'partners/:id', component: __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["c" /* EditPartnerComponent */] },
+    { path: '**', component: __WEBPACK_IMPORTED_MODULE_10__common_pagenotfound_component__["a" /* PageNotFoundComponent */] }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -145,7 +148,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["a" /* PartnersComponent */],
             __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["b" /* AddPartnerComponent */],
             __WEBPACK_IMPORTED_MODULE_9__partners_partners_component__["c" /* EditPartnerComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__objects_MasterList_component__["a" /* ConfirmDialog */]
+            __WEBPACK_IMPORTED_MODULE_10__common_pagenotfound_component__["a" /* PageNotFoundComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__objects_MasterList_component__["a" /* ConfirmDialog */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -168,11 +172,39 @@ AppModule = __decorate([
         ],
         providers: [],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]],
-        entryComponents: [__WEBPACK_IMPORTED_MODULE_10__objects_MasterList_component__["a" /* ConfirmDialog */]]
+        entryComponents: [__WEBPACK_IMPORTED_MODULE_11__objects_MasterList_component__["a" /* ConfirmDialog */]]
     })
 ], AppModule);
 
 //# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ "../../../../../angular-src/app/common/pagenotfound.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PageNotFoundComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var PageNotFoundComponent = (function () {
+    function PageNotFoundComponent() {
+    }
+    return PageNotFoundComponent;
+}());
+PageNotFoundComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        template: "<h1>404</h1><p>Page not Foaund</p>"
+    })
+], PageNotFoundComponent);
+
+//# sourceMappingURL=pagenotfound.component.js.map
 
 /***/ }),
 
