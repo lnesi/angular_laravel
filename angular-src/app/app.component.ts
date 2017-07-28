@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { User } from './models/User';
-import { AuthService } from "./services/auth.service";
+import { AuthService,AdminGuard } from "./services/auth.service";
 import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [AuthService]
+  providers: [AuthService,AdminGuard]
 })
 export class AppComponent implements OnInit {
   ngOnInit(): void {

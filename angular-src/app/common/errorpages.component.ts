@@ -6,3 +6,10 @@ import {Component} from '@angular/core';
 export class PageNotFoundComponent{
 
 }
+
+@Component({
+	template:`<h1>403</h1><p>You do not have permission to see this page.</p>`
+})
+export class UnAuthorizePageComponent{
+
+}

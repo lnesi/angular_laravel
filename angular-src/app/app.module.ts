@@ -23,23 +23,31 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
-
+import { AdminGuard,AuthService } from "./services/auth.service";
 import { UsersComponent, AddUserComponent, EditUserComponent } from './users/users.component';
 import { PartnersComponent, AddPartnerComponent, EditPartnerComponent } from './partners/partners.component';
-import { PageNotFoundComponent } from './common/pagenotfound.component';
+import { PageNotFoundComponent,UnAuthorizePageComponent } from './common/errorpages.component';
 import { ConfirmDialog } from "./objects/MasterList.component"
 
 
-
-var routes: Routes = [
+var adminPath={
+  path:'admin',
+  canActivate:[AdminGuard],
+  children:[
+    { path: 'users', component: UsersComponent },
+    { path: 'users/add', component: AddUserComponent },
+    { path: 'users/:id', component: EditUserComponent },
+    { path: 'partners', component: PartnersComponent },
+    { path: 'partners/add', component: AddPartnerComponent },
+    { path: 'partners/:id', component: EditPartnerComponent }
+  ]
+}
+var routes = [adminPath,
   { path: '', component: DashboardComponent },
-  { path: 'admin/users', component: UsersComponent },
-  { path: 'admin/users/add', component: AddUserComponent },
-  { path: 'admin/users/:id', component: EditUserComponent },
-  { path: 'admin/partners', component: PartnersComponent },
-  { path: 'admin/partners/add', component: AddPartnerComponent },
-  { path: 'admin/partners/:id', component: EditPartnerComponent },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '404',component: PageNotFoundComponent },
+  { path: '403',component: UnAuthorizePageComponent },
+  { path: '**', redirectTo: '/404', pathMatch: 'full'},
+  
 ];
 
 @NgModule({
@@ -50,6 +58,7 @@ var routes: Routes = [
     AddPartnerComponent,
     EditPartnerComponent,
     PageNotFoundComponent,
+    UnAuthorizePageComponent,
     UsersComponent,
     AddUserComponent,
     EditUserComponent,
@@ -77,7 +86,7 @@ var routes: Routes = [
     MdSelectModule,
     PasswordStrengthBarModule
   ],
-  providers: [],
+  providers: [AdminGuard,AuthService],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialog]
 })

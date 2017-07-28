@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../angular-src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav>\n  <md-toolbar color=\"primary\">\n    <span routerLink=\"/\" class=\"appName\">App</span>\n    <button md-button [mdMenuTriggerFor]=\"appMenu\">\n      <md-icon>settings</md-icon>\n    </button>\n    <md-menu #appMenu=\"mdMenu\" xPosition=\"after\" yPosition=\"below\" [overlapTrigger]=\"false\">\n      <a routerLink=\"admin/partners\" md-menu-item> Partners </a>\n      <a routerLink=\"admin/users\" md-menu-item> Users </a>\n    </md-menu>\n    <span class=\"example-fill-remaining-space\"></span>\n    <button md-button [mdMenuTriggerFor]=\"userMenu\">\n      <md-icon>person</md-icon> {{currentUser.name}}</button>\n    <md-menu #userMenu=\"mdMenu\" xPosition=\"before\" yPosition=\"below\" [overlapTrigger]=\"false\">\n      <a md-menu-item (click)=\"logout()\">\n        <md-icon>exit_to_app</md-icon> Logout </a>\n    </md-menu>\n  </md-toolbar>\n</nav>\n<div class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav>\n  <md-toolbar color=\"primary\">\n    <span routerLink=\"/\" class=\"appName\">App</span>\n    <div *ngIf=\"currentUser && currentUser.is_admin\">\n    <button md-button [mdMenuTriggerFor]=\"appMenu\">\n      <md-icon>settings</md-icon>\n    </button>\n    <md-menu #appMenu=\"mdMenu\" xPosition=\"after\" yPosition=\"below\" [overlapTrigger]=\"false\">\n      <a routerLink=\"admin/partners\" md-menu-item> Partners </a>\n      <a routerLink=\"admin/users\" md-menu-item> Users </a>\n    </md-menu>\n    </div>\n    <span class=\"example-fill-remaining-space\"></span>\n    <button md-button [mdMenuTriggerFor]=\"userMenu\">\n      <md-icon>person</md-icon> {{currentUser.name}}</button>\n    <md-menu #userMenu=\"mdMenu\" xPosition=\"before\" yPosition=\"below\" [overlapTrigger]=\"false\">\n      <a md-menu-item (click)=\"logout()\">\n        <md-icon>exit_to_app</md-icon> Logout </a>\n    </md-menu>\n  </md-toolbar>\n</nav>\n<div class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -83,9 +83,9 @@ AppComponent = __decorate([
         selector: 'app-root',
         template: __webpack_require__("../../../../../angular-src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../angular-src/app/app.component.css")],
-        providers: [__WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_2__services_auth_service__["b" /* AuthService */], __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AdminGuard */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["b" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["b" /* AuthService */]) === "function" && _a || Object])
 ], AppComponent);
 
 var _a;
@@ -108,10 +108,11 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__ = __webpack_require__("../../../../../angular-src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ng2_password_strength_bar__ = __webpack_require__("../../../../ng2-password-strength-bar/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ng2_password_strength_bar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_ng2_password_strength_bar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__users_users_component__ = __webpack_require__("../../../../../angular-src/app/users/users.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__partners_partners_component__ = __webpack_require__("../../../../../angular-src/app/partners/partners.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__common_pagenotfound_component__ = __webpack_require__("../../../../../angular-src/app/common/pagenotfound.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__objects_MasterList_component__ = __webpack_require__("../../../../../angular-src/app/objects/MasterList.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_auth_service__ = __webpack_require__("../../../../../angular-src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__users_users_component__ = __webpack_require__("../../../../../angular-src/app/users/users.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__ = __webpack_require__("../../../../../angular-src/app/partners/partners.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__common_errorpages_component__ = __webpack_require__("../../../../../angular-src/app/common/errorpages.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__objects_MasterList_component__ = __webpack_require__("../../../../../angular-src/app/objects/MasterList.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -133,15 +134,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var routes = [
+
+var adminPath = {
+    path: 'admin',
+    canActivate: [__WEBPACK_IMPORTED_MODULE_10__services_auth_service__["a" /* AdminGuard */]],
+    children: [
+        { path: 'users', component: __WEBPACK_IMPORTED_MODULE_11__users_users_component__["a" /* UsersComponent */] },
+        { path: 'users/add', component: __WEBPACK_IMPORTED_MODULE_11__users_users_component__["b" /* AddUserComponent */] },
+        { path: 'users/:id', component: __WEBPACK_IMPORTED_MODULE_11__users_users_component__["c" /* EditUserComponent */] },
+        { path: 'partners', component: __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["a" /* PartnersComponent */] },
+        { path: 'partners/add', component: __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["b" /* AddPartnerComponent */] },
+        { path: 'partners/:id', component: __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["c" /* EditPartnerComponent */] }
+    ]
+};
+var routes = [adminPath,
     { path: '', component: __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__["a" /* DashboardComponent */] },
-    { path: 'admin/users', component: __WEBPACK_IMPORTED_MODULE_10__users_users_component__["a" /* UsersComponent */] },
-    { path: 'admin/users/add', component: __WEBPACK_IMPORTED_MODULE_10__users_users_component__["b" /* AddUserComponent */] },
-    { path: 'admin/users/:id', component: __WEBPACK_IMPORTED_MODULE_10__users_users_component__["c" /* EditUserComponent */] },
-    { path: 'admin/partners', component: __WEBPACK_IMPORTED_MODULE_11__partners_partners_component__["a" /* PartnersComponent */] },
-    { path: 'admin/partners/add', component: __WEBPACK_IMPORTED_MODULE_11__partners_partners_component__["b" /* AddPartnerComponent */] },
-    { path: 'admin/partners/:id', component: __WEBPACK_IMPORTED_MODULE_11__partners_partners_component__["c" /* EditPartnerComponent */] },
-    { path: '**', component: __WEBPACK_IMPORTED_MODULE_12__common_pagenotfound_component__["a" /* PageNotFoundComponent */] }
+    { path: '404', component: __WEBPACK_IMPORTED_MODULE_13__common_errorpages_component__["a" /* PageNotFoundComponent */] },
+    { path: '403', component: __WEBPACK_IMPORTED_MODULE_13__common_errorpages_component__["b" /* UnAuthorizePageComponent */] },
+    { path: '**', redirectTo: '/404', pathMatch: 'full' },
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -153,14 +163,15 @@ AppModule = __decorate([
         declarations: [
             __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__["a" /* DashboardComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__partners_partners_component__["a" /* PartnersComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__partners_partners_component__["b" /* AddPartnerComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__partners_partners_component__["c" /* EditPartnerComponent */],
-            __WEBPACK_IMPORTED_MODULE_12__common_pagenotfound_component__["a" /* PageNotFoundComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__users_users_component__["a" /* UsersComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__users_users_component__["b" /* AddUserComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__users_users_component__["c" /* EditUserComponent */],
-            __WEBPACK_IMPORTED_MODULE_13__objects_MasterList_component__["a" /* ConfirmDialog */]
+            __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["a" /* PartnersComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["b" /* AddPartnerComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["c" /* EditPartnerComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__common_errorpages_component__["a" /* PageNotFoundComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__common_errorpages_component__["b" /* UnAuthorizePageComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__users_users_component__["a" /* UsersComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__users_users_component__["b" /* AddUserComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__users_users_component__["c" /* EditUserComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__objects_MasterList_component__["a" /* ConfirmDialog */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -184,9 +195,9 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_6__angular_material__["m" /* MdSelectModule */],
             __WEBPACK_IMPORTED_MODULE_9_ng2_password_strength_bar__["PasswordStrengthBarModule"]
         ],
-        providers: [],
+        providers: [__WEBPACK_IMPORTED_MODULE_10__services_auth_service__["a" /* AdminGuard */], __WEBPACK_IMPORTED_MODULE_10__services_auth_service__["b" /* AuthService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]],
-        entryComponents: [__WEBPACK_IMPORTED_MODULE_13__objects_MasterList_component__["a" /* ConfirmDialog */]]
+        entryComponents: [__WEBPACK_IMPORTED_MODULE_14__objects_MasterList_component__["a" /* ConfirmDialog */]]
     })
 ], AppModule);
 
@@ -194,12 +205,13 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ "../../../../../angular-src/app/common/pagenotfound.component.ts":
+/***/ "../../../../../angular-src/app/common/errorpages.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PageNotFoundComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return UnAuthorizePageComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -218,7 +230,18 @@ PageNotFoundComponent = __decorate([
     })
 ], PageNotFoundComponent);
 
-//# sourceMappingURL=pagenotfound.component.js.map
+var UnAuthorizePageComponent = (function () {
+    function UnAuthorizePageComponent() {
+    }
+    return UnAuthorizePageComponent;
+}());
+UnAuthorizePageComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        template: "<h1>403</h1><p>You do not have permission to see this page.</p>"
+    })
+], UnAuthorizePageComponent);
+
+//# sourceMappingURL=errorpages.component.js.map
 
 /***/ }),
 
@@ -641,10 +664,12 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/add/operator/toPromise.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/add/operator/toPromise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AuthService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminGuard; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -654,6 +679,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -672,10 +698,38 @@ var AuthService = (function () {
 }());
 AuthService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], AuthService);
 
-var _a;
+var AdminGuard = (function () {
+    function AdminGuard(auth, router) {
+        this.auth = auth;
+        this.router = router;
+        this.currentUser = null;
+        console.log("constructor canActivate");
+    }
+    AdminGuard.prototype.canActivate = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.auth.getCurrent().then(function (response) {
+                if (response.is_admin == 1) {
+                    resolve(true);
+                }
+                else {
+                    _this.router.navigate(['/403']);
+                    resolve(false);
+                }
+            });
+        });
+    };
+    return AdminGuard;
+}());
+AdminGuard = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [AuthService, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
+], AdminGuard);
+
+var _a, _b;
 //# sourceMappingURL=auth.service.js.map
 
 /***/ }),

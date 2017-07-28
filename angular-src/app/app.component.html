@@ -2,6 +2,7 @@
 <nav>
   <md-toolbar color="primary">
     <span routerLink="/" class="appName">App</span>
+    <div *ngIf="currentUser && currentUser.is_admin">
     <button md-button [mdMenuTriggerFor]="appMenu">
       <md-icon>settings</md-icon>
     </button>
@@ -9,6 +10,7 @@
       <a routerLink="admin/partners" md-menu-item> Partners </a>
       <a routerLink="admin/users" md-menu-item> Users </a>
     </md-menu>
+    </div>
     <span class="example-fill-remaining-space"></span>
     <button md-button [mdMenuTriggerFor]="userMenu">
       <md-icon>person</md-icon> {{currentUser.name}}</button>
