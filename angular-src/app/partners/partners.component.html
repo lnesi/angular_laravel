@@ -1,4 +1,4 @@
-<h1>Partners <a routerLink="/partners/add" md-button ><md-icon class="actionsIcon">add</md-icon></a></h1>
+<h1>Partners <a routerLink="/admin/partners/add" md-button ><md-icon class="actionsIcon">add</md-icon></a></h1>
 <md-progress-bar *ngIf="loading" mode="indeterminate"></md-progress-bar>
 <table *ngIf="!loading" class="table" cellspacing="0" cellpadding="0">
   <thead>
@@ -15,7 +15,7 @@
       <td>{{item.name}}</td>
       <td>{{item.abbr}}</td>
       <td>
-        <a md-button routerLink="/partners/{{item.id}}">
+        <a md-button routerLink="/admin/partners/{{item.id}}">
           <md-icon class="actionsIcon">edit</md-icon>
         </a>
       </td>

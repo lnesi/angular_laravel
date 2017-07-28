@@ -81,7 +81,7 @@ export class AddPartnerComponent extends BasePartnertAddEdit {
     this.partnerService.store(this.partner).then(response => {
       this.loading = false;
       this.snackBar.open("The partners as been addded.", null, { duration: 2000 });
-      this.router.navigate(['/partners']);
+      this.router.navigate(['/admin//partners']);
     });
   }
 }

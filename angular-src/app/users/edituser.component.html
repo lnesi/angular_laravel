@@ -1,0 +1,18 @@
+<h1>Edit User</h1>
+<md-progress-bar *ngIf="loading" mode="indeterminate"></md-progress-bar>
+<form *ngIf="user">
+ <md-input-container  class="form-control full-width" *ngIf="user.partner">
+    <input  mdInput  placeholder="Partner" type="text"  [(ngModel)]="user.partner.name" name="parner" disabled>
+  </md-input-container>
+	<md-input-container class="form-control full-width">
+    <input mdInput  placeholder="Full Name" type="text" required="required" [(ngModel)]="user.name" [formControl]="nameFormControl">
+    <md-error *ngIf="nameFormControl.hasError('required')">Name is <strong>required</strong></md-error>
+  </md-input-container>
+   <md-input-container  class="form-control full-width">
+    <input mdInput  placeholder="Email" type="text"  [(ngModel)]="user.email" name="email" disabled>
+  </md-input-container>
+  <p>
+  <a routerLink="/admin/users" md-button><md-icon class="actionsIcon">arrow_back</md-icon> Back</a>
+  <button class="pull-right" md-button (click)="validate()"><md-icon class="actionsIcon">save</md-icon> Save</button>
+  </p>
+</form>

@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    protected $with=['partner'];
+
+    public function partner(){
+        return $this->belongsTo(Partner::class);
+    }
 }

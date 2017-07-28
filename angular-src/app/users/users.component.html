@@ -1,4 +1,4 @@
-<h1>Users <a routerLink="/users/add" md-button ><md-icon class="actionsIcon">add</md-icon></a></h1>
+<h1>Users <a routerLink="/admin/users/add" md-button ><md-icon class="actionsIcon">add</md-icon></a></h1>
 <md-progress-bar *ngIf="loading" mode="indeterminate"></md-progress-bar>
 <table *ngIf="!loading" class="table" cellspacing="0" cellpadding="0">
   <thead>
@@ -15,7 +15,7 @@
       <td>{{item.name}}</td>
       <td>{{item.email}}</td>
       <td>
-        <a md-button routerLink="/users/{{item.id}}">
+        <a md-button routerLink="/admin/users/{{item.id}}">
           <md-icon class="actionsIcon">edit</md-icon>
         </a>
       </td>

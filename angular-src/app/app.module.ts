@@ -24,7 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 
-import { UsersComponent, AddUserComponent } from './users/users.component';
+import { UsersComponent, AddUserComponent, EditUserComponent } from './users/users.component';
 import { PartnersComponent, AddPartnerComponent, EditPartnerComponent } from './partners/partners.component';
 import { PageNotFoundComponent } from './common/pagenotfound.component';
 import { ConfirmDialog } from "./objects/MasterList.component"
@@ -33,11 +33,12 @@ import { ConfirmDialog } from "./objects/MasterList.component"
 
 var routes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'users/add', component: AddUserComponent },
-  { path: 'partners', component: PartnersComponent },
-  { path: 'partners/add', component: AddPartnerComponent },
-  { path: 'partners/:id', component: EditPartnerComponent },
+  { path: 'admin/users', component: UsersComponent },
+  { path: 'admin/users/add', component: AddUserComponent },
+  { path: 'admin/users/:id', component: EditUserComponent },
+  { path: 'admin/partners', component: PartnersComponent },
+  { path: 'admin/partners/add', component: AddPartnerComponent },
+  { path: 'admin/partners/:id', component: EditPartnerComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -51,6 +52,7 @@ var routes: Routes = [
     PageNotFoundComponent,
     UsersComponent,
     AddUserComponent,
+    EditUserComponent,
     ConfirmDialog
   ],
   imports: [

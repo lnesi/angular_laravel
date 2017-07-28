@@ -6,8 +6,8 @@
       <md-icon>settings</md-icon>
     </button>
     <md-menu #appMenu="mdMenu" xPosition="after" yPosition="below" [overlapTrigger]="false">
-      <a routerLink="/partners" md-menu-item> Partners </a>
-      <a routerLink="/users" md-menu-item> Users </a>
+      <a routerLink="admin/partners" md-menu-item> Partners </a>
+      <a routerLink="admin/users" md-menu-item> Users </a>
     </md-menu>
     <span class="example-fill-remaining-space"></span>
     <button md-button [mdMenuTriggerFor]="userMenu">
