@@ -1,76 +1,71 @@
 @extends('layouts.auth')
-
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-
-                <div class="panel-body">
+<div class="mdc-layout-grid">
+  <div class="mdc-layout-grid__inner">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"></div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+        <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
+        {{ csrf_field() }}
+        <input type="hidden" name="token" value="{{ $token }}">
+            <div class="mdc-card authContainer">
+              <section class="mdc-card__primary">
+                <h1 class="mdc-card__title mdc-card__title--large">Reset Password</h1>
+                <h2 class="mdc-card__subtitle">Please provide the information below.</h2>
+              </section>
+              <section class="mdc-card__supporting-text">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div class="mdc-textfield full-width {{ $errors->has('email') ? ' mdc-textfield--invalid' : '' }}" data-mdc-auto-init="MDCTextfield">
+                      <input type="email" class="mdc-textfield__input" id="email" name="email" value="{{ old('email') }}" required autofocus>
+                      <label for="email" class="mdc-textfield__label">Email</label>
+                    </div>
+                    @if ($errors->has('email'))
+                    <p class="mdc-textfield-helptext
+                              mdc-textfield-helptext--persistent
+                              mdc-textfield-helptext--validation-msg"
+                       id="pw-validation-msg">
+                      {{ $errors->first('email') }}
+                    </p>
+                    @endif 
 
-                    <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
-                        {{ csrf_field() }}
+                     <div class="mdc-textfield full-width {{ $errors->has('password') ? ' mdc-textfield--invalid' : '' }}" data-mdc-auto-init="MDCTextfield">
+                          <input type="password" class="mdc-textfield__input" id="password" name="password" required autofocus>
+                          <label for="email" class="mdc-textfield__label">Password</label>
+                        </div>    
+                        @if ($errors->has('password'))
+                             <p class="mdc-textfield-helptext
+                                      mdc-textfield-helptext--persistent
+                                      mdc-textfield-helptext--validation-msg"
+                               id="pw-validation-msg">
+                              {{ $errors->first('password') }}
+                            </p>
+                        @endif
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+                         <div class="mdc-textfield full-width {{ $errors->has('password_confirmation') ? ' mdc-textfield--invalid' : '' }}" data-mdc-auto-init="MDCTextfield">
+                          <input type="password" class="mdc-textfield__input" id="password_confirmation" name="password_confirmation" required autofocus>
+                          <label for="email" class="mdc-textfield__label">Confirm Password</label>
+                        </div>    
+                        @if ($errors->has('password'))
+                             <p class="mdc-textfield-helptext
+                                      mdc-textfield-helptext--persistent
+                                      mdc-textfield-helptext--validation-msg"
+                               id="pw-validation-msg">
+                              {{ $errors->first('password_confirmation') }}
+                            </p>
+                        @endif
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Reset Password
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+              </section>
+              <section class="mdc-card__actions">
+                <button type="submit" class="mdc-button mdc-button--compact mdc-card__action mdc-button--primary">Reset Password</button>
+                <a class="mdc-button mdc-button--compact mdc-card__action" href="/">Cancel</a>
+              </section>
             </div>
-        </div>
+        </form>
     </div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2"></div>
+  </div>
 </div>
 @endsection

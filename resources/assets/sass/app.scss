@@ -2,13 +2,35 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
+
 // Variables
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import 'node_modules/material-components-web/dist/material-components-web';
 
+$mdc-theme-primary: #673ab7;
+$mdc-theme-accent: #ffd740;
+$mdc-theme-background: #fff;
+
+@import "node_modules/@material/theme/mdc-theme";
 
 body{
 	margin:0;
+	background:$mdc-theme-primary;
 }
+.authContainer{
+	background:$mdc-theme-background;
+
+}
+.full-width{
+	width:100%;
+}
+
+.authAppTitle{
+	display: inline-block;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+}
+    
