@@ -141,7 +141,8 @@ var adminPath = {
     children: [
         { path: 'users', component: __WEBPACK_IMPORTED_MODULE_11__users_users_component__["a" /* UsersComponent */] },
         { path: 'users/add', component: __WEBPACK_IMPORTED_MODULE_11__users_users_component__["b" /* AddUserComponent */] },
-        { path: 'users/:id', component: __WEBPACK_IMPORTED_MODULE_11__users_users_component__["c" /* EditUserComponent */] },
+        { path: 'users/invite', component: __WEBPACK_IMPORTED_MODULE_11__users_users_component__["c" /* InviteUserComponent */] },
+        { path: 'users/:id', component: __WEBPACK_IMPORTED_MODULE_11__users_users_component__["d" /* EditUserComponent */] },
         { path: 'partners', component: __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["a" /* PartnersComponent */] },
         { path: 'partners/add', component: __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["b" /* AddPartnerComponent */] },
         { path: 'partners/:id', component: __WEBPACK_IMPORTED_MODULE_12__partners_partners_component__["c" /* EditPartnerComponent */] }
@@ -170,7 +171,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_13__common_errorpages_component__["b" /* UnAuthorizePageComponent */],
             __WEBPACK_IMPORTED_MODULE_11__users_users_component__["a" /* UsersComponent */],
             __WEBPACK_IMPORTED_MODULE_11__users_users_component__["b" /* AddUserComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__users_users_component__["c" /* EditUserComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__users_users_component__["d" /* EditUserComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__users_users_component__["c" /* InviteUserComponent */],
             __WEBPACK_IMPORTED_MODULE_14__objects_MasterList_component__["a" /* ConfirmDialog */]
         ],
         imports: [
@@ -837,6 +839,9 @@ var UserService = (function () {
             return response.json().result ? null : { 'emailNotRegistered': 'The email is already registered' };
         });
     };
+    UserService.prototype.invite = function (user) {
+        return this.http.post("/ajax/admin/users/invite", user).toPromise().then(function (response) { return response.json(); });
+    };
     return UserService;
 }());
 UserService = __decorate([
@@ -863,10 +868,17 @@ module.exports = "<h1>Edit User</h1>\n<md-progress-bar *ngIf=\"loading\" mode=\"
 
 /***/ }),
 
+/***/ "../../../../../angular-src/app/users/inviteuser.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h1>Invite User</h1>\n<md-progress-bar *ngIf=\"loading\" mode=\"indeterminate\"></md-progress-bar>\n<form *ngIf=\"!loading\">\n  \n\n    <md-select #inPartner class=\"form-control-select full-width\" placeholder=\"Partner\" name=\"partner\" required=\"required\" [formControl]=\"partnerFormControl\" [(ngModel)]=\"user.partner_id\">\n      <md-option *ngFor=\"let partner of partnerList\" value=\"{{partner.id}}\">\n\t    {{ partner.name }}\n\t  </md-option>\n    </md-select>\n    <md-error class=\"select-error\" *ngIf=\"user.partner_id==null && inihack\">Partner is <strong>required</strong></md-error>\n\n  <md-input-container #inName class=\"form-control full-width\">\n    <input mdInput  placeholder=\"Full Name\" type=\"text\" required=\"required\" [(ngModel)]=\"user.name\" [formControl]=\"nameFormControl\">\n    <md-error *ngIf=\"nameFormControl.hasError('required')\">Name is <strong>required</strong></md-error>\n  </md-input-container>\n\n  <md-input-container #inEmail class=\"form-control full-width\">\n    <input mdInput  placeholder=\"Email\" type=\"text\" required=\"required\" [(ngModel)]=\"user.email\" [formControl]=\"emailFormControl\">\n    <md-error *ngIf=\"emailFormControl.hasError('required')\">Email is <strong>required</strong></md-error>\n    <md-error *ngIf=\"emailFormControl.hasError('pattern')\">Please enter a valid email address</md-error>\n    <md-error *ngIf=\"emailFormControl.hasError('emailNotRegistered')\">The email address is already registered</md-error>\n  </md-input-container>\n\n  <p>\n  <a routerLink=\"/admin/users\" md-button><md-icon class=\"actionsIcon\">arrow_back</md-icon> Back</a>\n  <button class=\"pull-right\" md-button (click)=\"validate()\"><md-icon class=\"actionsIcon\">mail</md-icon> Send</button>\n  </p>\n</form>\n"
+
+/***/ }),
+
 /***/ "../../../../../angular-src/app/users/users.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Users <a routerLink=\"/admin/users/add\" md-button ><md-icon class=\"actionsIcon\">add</md-icon></a></h1>\n<md-progress-bar *ngIf=\"loading\" mode=\"indeterminate\"></md-progress-bar>\n<table *ngIf=\"!loading\" class=\"table\" cellspacing=\"0\" cellpadding=\"0\">\n  <thead>\n    <tr>\n      <th width=\"50%\">Name</th>\n      <th width=\"20%\">Email</th>\n      <th width=\"10%\">Edit</th>\n      <th width=\"10%\">Delete</th>\n      <th width=\"10%\">Active(Y/N)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let item of dataList\">\n      <td>{{item.name}}</td>\n      <td>{{item.email}}</td>\n      <td>\n        <a md-button routerLink=\"/admin/users/{{item.id}}\">\n          <md-icon class=\"actionsIcon\">edit</md-icon>\n        </a>\n      </td>\n      <td>\n        <button md-button (click)=\"delete(item)\">\n          <md-icon *ngIf=\"!item.is_admin\">delete</md-icon>\n        </button>\n      </td>\n      <td>\n        <md-slide-toggle [checked]=\"item.active\" *ngIf=\"!item.is_admin\" (change)=\"toggleActive(item)\"> </md-slide-toggle>\n      </td>\n    </tr>\n  </tbody>\n</table>\n<!-- Button trigger modal -->\n"
+module.exports = "<h1>Users <a routerLink=\"/admin/users/add\" md-button ><md-icon class=\"actionsIcon\">add</md-icon> add</a> <a routerLink=\"/admin/users/invite\" md-button ><md-icon class=\"actionsIcon\">mail</md-icon> New invite</a></h1>\n\n<md-progress-bar *ngIf=\"loading\" mode=\"indeterminate\"></md-progress-bar>\n<table *ngIf=\"!loading\" class=\"table\" cellspacing=\"0\" cellpadding=\"0\">\n  <thead>\n    <tr>\n      <th width=\"50%\">Name</th>\n      <th width=\"20%\">Email</th>\n      <th width=\"10%\">Edit</th>\n      <th width=\"10%\">Delete</th>\n      <th width=\"10%\">Active(Y/N)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let item of dataList\">\n      <td>{{item.name}}</td>\n      <td>{{item.email}}</td>\n      <td>\n        <a md-button routerLink=\"/admin/users/{{item.id}}\">\n          <md-icon class=\"actionsIcon\">edit</md-icon>\n        </a>\n      </td>\n      <td>\n        <button md-button (click)=\"delete(item)\">\n          <md-icon *ngIf=\"!item.is_admin\">delete</md-icon>\n        </button>\n      </td>\n      <td>\n        <md-slide-toggle [checked]=\"item.active\" *ngIf=\"!item.is_admin\" (change)=\"toggleActive(item)\"> </md-slide-toggle>\n      </td>\n    </tr>\n  </tbody>\n</table>\n<!-- Button trigger modal -->\n"
 
 /***/ }),
 
@@ -905,7 +917,8 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ng2_password_strength_bar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_ng2_password_strength_bar__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UsersComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AddUserComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return EditUserComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return EditUserComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return InviteUserComponent; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1104,7 +1117,67 @@ EditUserComponent = __decorate([
     __metadata("design:paramtypes", [typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MdSnackBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MdSnackBar */]) === "function" && _s || Object, typeof (_t = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === "function" && _t || Object, typeof (_u = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */]) === "function" && _u || Object])
 ], EditUserComponent);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
+var InviteUserComponent = (function () {
+    function InviteUserComponent(partnerService, userService, snackBar, router, cdRef) {
+        this.partnerService = partnerService;
+        this.userService = userService;
+        this.snackBar = snackBar;
+        this.router = router;
+        this.cdRef = cdRef;
+        this.loading = false;
+        this.nameFormControl = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["i" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* Validators */].required]);
+        this.emailFormControl = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["i" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* Validators */].pattern(EMAIL_REGEX)], RemoteValidation(this.userService));
+        this.partnerFormControl = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["i" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* Validators */].required]);
+        this.partnerList = null;
+        this.validEmail = true;
+        this.inihack = false;
+        this.user = new __WEBPACK_IMPORTED_MODULE_6__models_User__["a" /* User */]();
+    }
+    InviteUserComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.cdRef.detectChanges();
+        this.partnerService.getAll().then(function (response) { _this.partnerList = response; });
+    };
+    InviteUserComponent.prototype.save = function () {
+        var _this = this;
+        this.loading = true;
+        this.userService.invite(this.user).then(function (response) {
+            _this.user = response;
+            _this.loading = false;
+            _this.snackBar.open("The invitation has been sent.", null, { duration: 2000 });
+            _this.router.navigate(['/admin/users']);
+        });
+    };
+    InviteUserComponent.prototype.validate = function () {
+        this.inihack = true;
+        if (!this.partnerFormControl.valid) {
+            this.inPartner._elementRef.nativeElement.classList.remove('ng-valid', 'ng-untouched');
+            this.inPartner._elementRef.nativeElement.classList.add('ng-invalid', 'mat-input-invalid', 'ng-touched');
+        }
+        if (this.nameFormControl.valid && this.emailFormControl.valid && this.partnerFormControl.valid) {
+            this.save();
+        }
+        else {
+            this.snackBar.open("Please complete the form before continue", null, { duration: 2000 });
+        }
+        ;
+    };
+    return InviteUserComponent;
+}());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("inPartner"),
+    __metadata("design:type", typeof (_v = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["q" /* MdSelect */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["q" /* MdSelect */]) === "function" && _v || Object)
+], InviteUserComponent.prototype, "inPartner", void 0);
+InviteUserComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        template: __webpack_require__("../../../../../angular-src/app/users/inviteuser.component.html"),
+        styles: [__webpack_require__("../../../../../angular-src/app/users/users.component.scss")],
+        providers: [__WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */]]
+    }),
+    __metadata("design:paramtypes", [typeof (_w = typeof __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_partner_service__["a" /* PartnerService */]) === "function" && _w || Object, typeof (_x = typeof __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */]) === "function" && _x || Object, typeof (_y = typeof __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MdSnackBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MdSnackBar */]) === "function" && _y || Object, typeof (_z = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _z || Object, typeof (_0 = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === "function" && _0 || Object])
+], InviteUserComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0;
 //# sourceMappingURL=users.component.js.map
 
 /***/ }),

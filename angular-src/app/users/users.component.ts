@@ -179,3 +179,59 @@ export class EditUserComponent implements AfterViewInit{
      }
   }
 }
+
+@Component({
+  templateUrl: 'inviteuser.component.html',
+  styleUrls: ['users.component.scss'],
+  providers: [UserService, PartnerService]
+})
+export class InviteUserComponent implements AfterViewInit{
+  @ViewChild("inPartner") inPartner: MdSelect;
+  user:User
+  loading:boolean=false
+  nameFormControl = new FormControl('', [Validators.required]);
+  emailFormControl = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)], RemoteValidation(this.userService));
+  partnerFormControl = new FormControl('', [Validators.required]);
+  partnerList: Partner[] = null;
+  validEmail: boolean = true
+  inihack:boolean=false
+  constructor(
+    private partnerService: PartnerService,
+    private userService: UserService,
+    public snackBar: MdSnackBar,
+    public router: Router,
+    private cdRef: ChangeDetectorRef) {
+    this.user = new User();
+  }
+
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
+    this.partnerService.getAll().then(response => { this.partnerList = response });
+
+  }
+
+  save(){
+    this.loading = true;
+    this.userService.invite(this.user).then(response => {
+      this.user = response;
+      this.loading = false;
+      this.snackBar.open("The invitation has been sent.", null, { duration: 2000 });
+      this.router.navigate(['/admin/users']);
+    });
+  }
+
+  validate() {
+    this.inihack = true;
+
+    if (!this.partnerFormControl.valid) {
+      this.inPartner._elementRef.nativeElement.classList.remove('ng-valid', 'ng-untouched');
+      this.inPartner._elementRef.nativeElement.classList.add('ng-invalid', 'mat-input-invalid', 'ng-touched');
+    }
+
+    if (this.nameFormControl.valid && this.emailFormControl.valid && this.partnerFormControl.valid) {
+      this.save();
+    } else {
+      this.snackBar.open("Please complete the form before continue", null, { duration: 2000 });
+    };
+  }
+}

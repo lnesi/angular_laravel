@@ -1,4 +1,5 @@
-<h1>Users <a routerLink="/admin/users/add" md-button ><md-icon class="actionsIcon">add</md-icon></a></h1>
+<h1>Users <a routerLink="/admin/users/add" md-button ><md-icon class="actionsIcon">add</md-icon> add</a> <a routerLink="/admin/users/invite" md-button ><md-icon class="actionsIcon">mail</md-icon> New invite</a></h1>
+
 <md-progress-bar *ngIf="loading" mode="indeterminate"></md-progress-bar>
 <table *ngIf="!loading" class="table" cellspacing="0" cellpadding="0">
   <thead>

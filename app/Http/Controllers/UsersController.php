@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserInvite;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Password;
 class UsersController extends ActivationAjaxController
 {
   

@@ -1,0 +1,29 @@
+<h1>Invite User</h1>
+<md-progress-bar *ngIf="loading" mode="indeterminate"></md-progress-bar>
+<form *ngIf="!loading">
+  
+
+    <md-select #inPartner class="form-control-select full-width" placeholder="Partner" name="partner" required="required" [formControl]="partnerFormControl" [(ngModel)]="user.partner_id">
+      <md-option *ngFor="let partner of partnerList" value="{{partner.id}}">
+	    {{ partner.name }}
+	  </md-option>
+    </md-select>
+    <md-error class="select-error" *ngIf="user.partner_id==null && inihack">Partner is <strong>required</strong></md-error>
+
+  <md-input-container #inName class="form-control full-width">
+    <input mdInput  placeholder="Full Name" type="text" required="required" [(ngModel)]="user.name" [formControl]="nameFormControl">
+    <md-error *ngIf="nameFormControl.hasError('required')">Name is <strong>required</strong></md-error>
+  </md-input-container>
+
+  <md-input-container #inEmail class="form-control full-width">
+    <input mdInput  placeholder="Email" type="text" required="required" [(ngModel)]="user.email" [formControl]="emailFormControl">
+    <md-error *ngIf="emailFormControl.hasError('required')">Email is <strong>required</strong></md-error>
+    <md-error *ngIf="emailFormControl.hasError('pattern')">Please enter a valid email address</md-error>
+    <md-error *ngIf="emailFormControl.hasError('emailNotRegistered')">The email address is already registered</md-error>
+  </md-input-container>
+
+  <p>
+  <a routerLink="/admin/users" md-button><md-icon class="actionsIcon">arrow_back</md-icon> Back</a>
+  <button class="pull-right" md-button (click)="validate()"><md-icon class="actionsIcon">mail</md-icon> Send</button>
+  </p>
+</form>

@@ -36,5 +36,9 @@ export class UserService {
       return response.json().result? null:{ 'emailNotRegistered': 'The email is already registered' }
     });
   }
+
+  invite(user: User): Promise < User > {
+      return this.http.post("/ajax/admin/users/invite", user).toPromise().then(response => response.json() as User);
+  }
 }
 
