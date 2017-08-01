@@ -1,6 +1,11 @@
 
 # Laravel / Angular 2 / Single Page Application Template
 
+----
+<strong>by:</strong> <a href="https://lnesi.github.io/">Luis Nesi</a><br>
+<a href="https://twitter.com/lnesi">@lnesi</a>
+
+
 Single Page Application template in Angular 2 with Angular Material.
 
 ## Fetures.
@@ -53,7 +58,7 @@ ng build --watch
 
 ### About Laravel
 
-<p align="center"><img src="https://laravel.com/assets/img/components/lo	go-laravel.svg"></p>
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
