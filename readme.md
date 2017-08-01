@@ -1,3 +1,41 @@
+
+# Laravel / Angular 2 / Single Page Application Template
+
+Single Page Application template in Angular 2 with Angular Material.
+
+## Fetures.
+- Laravel Simple Auth
+- User Invites 
+- User System Extended with activations
+- Partners system for user segmentation
+- Angular 2 Material Front Eng.
+
+## Installation
+1.  Download or clone in your Machine
+```
+composer install
+```
+2. Create .env and DB details
+3. Generate Key
+```
+php artisan key:generate
+```
+4. Migrate
+```
+php artisan migrate
+```
+5. Install Front End Packages
+```
+npm install
+```
+6. Serve
+ ```
+php artisan serve
+```
+7. Open browser http://127.0.0.1:8000
+
+### About Laravel
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
@@ -7,7 +45,6 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
