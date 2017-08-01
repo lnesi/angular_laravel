@@ -16,7 +16,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-
+//Accept Invite
+Route::get('/accept/{token}','UsersController@accept');
 
 Route::group(['prefix' => 'ajax','middleware' => 'auth'],function(){
 	Route::get("/user",function(){
@@ -29,6 +30,7 @@ Route::group(['prefix' => 'ajax','middleware' => 'auth'],function(){
 		Route::resource("/partners",PartnersController::class,['except' => ['create', 'edit']]);
 		Route::resource("/users",UsersController::class,['except' => ['create', 'edit']]);
 		Route::post("/users/invite","UsersController@invite");
+		Route::post("/users/{user_id}/toggle","UsersController@toggle");
 	});
 	Route::post('/users/validate','UsersController@validateEmail');
 });

@@ -15,6 +15,7 @@ class AuthenticateActiveUser
      */
     public function handle($request, Closure $next,$guard=null)
     {
+        
         if($request->user()->active){
             return $next($request);
         }else{

@@ -424,11 +424,12 @@ var MasterList = (function () {
         item.active = 1 - item.active;
         var dialogRef = this.dialog.open(ConfirmDialog, { data: { title: "Attention!", message: "Are you sure you want to " + action + "?" } });
         dialogRef.afterClosed().subscribe(function (result) {
-            if (result == 0) {
-                item.active = 1 - item.active;
+            console.log("CLOSE", result);
+            if (result === "1") {
+                _this.doUpdate(item);
             }
             else {
-                _this.doUpdate(item);
+                item.active = 1 - item.active;
             }
         });
     };

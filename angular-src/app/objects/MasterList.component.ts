@@ -62,10 +62,11 @@ export class MasterList implements AfterViewInit, AfterViewChecked {
     item.active = 1 - item.active;
     let dialogRef = this.dialog.open(ConfirmDialog, { data: { title: "Attention!", message: "Are you sure you want to " + action + "?" } });
     dialogRef.afterClosed().subscribe(result => {
-      if (result == 0) {
-        item.active = 1 - item.active;
+      console.log("CLOSE",result);
+      if (result === "1") {
+         this.doUpdate(item);
       } else {
-        this.doUpdate(item);
+         item.active = 1 - item.active;
       }
     });
 
