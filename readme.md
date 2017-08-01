@@ -1,9 +1,7 @@
 
 # Laravel / Angular 2 / Single Page Application Template
 
-----
-<strong>by:</strong> <a href="https://lnesi.github.io/">Luis Nesi</a><br>
-<a href="https://twitter.com/lnesi">@lnesi</a>
+<strong>by:</strong> <a href="https://lnesi.github.io/">Luis Nesi</a> - <a href="https://twitter.com/lnesi">@lnesi</a>
 
 
 Single Page Application template in Angular 2 with Angular Material.
@@ -32,7 +30,8 @@ composer install
 ```
 php artisan key:generate
 ```
-4. Migrate
+4. Migrate: 
+Open The file 2017_07_25_091335_admin.php in database/migrations and add the credentials desire for admin user.
 ```
 php artisan migrate
 ```
