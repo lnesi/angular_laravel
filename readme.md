@@ -10,6 +10,13 @@ Single Page Application template in Angular 2 with Angular Material.
 - Partners system for user segmentation
 - Angular 2 Material Front Eng.
 
+## Requirements:
+- MySQL
+- PHP 
+- Composer
+- npm
+- Angular CLI
+
 ## Installation
 1.  Download or clone in your Machine
 ```
@@ -33,6 +40,16 @@ npm install
 php artisan serve
 ```
 7. Open browser http://127.0.0.1:8000
+
+## Build and develop
+- Static Auth Pages
+```
+npm run dev
+ ```
+- Angular App
+```
+ng build --watch
+ ```
 
 ### About Laravel
 
