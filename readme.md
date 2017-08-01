@@ -8,7 +8,7 @@ Single Page Application template in Angular 2 with Angular Material.
 - User Invites 
 - User System Extended with activations
 - Partners system for user segmentation
-- Angular 2 Material Front Eng.
+- Angular 2 Material Frontend.
 
 ## Requirements:
 - MySQL
@@ -53,7 +53,7 @@ ng build --watch
 
 ### About Laravel
 
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center"><img src="https://laravel.com/assets/img/components/lo	go-laravel.svg"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
