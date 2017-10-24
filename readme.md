@@ -1,5 +1,5 @@
 
-# Laravel / Angular 2 / Single Page Application Template
+# Laravel / Angular 4 / Single Page Application Template
 
 <strong>by:</strong> <a href="https://lnesi.github.io/">Luis Nesi</a> - <a href="https://twitter.com/lnesi">@lnesi</a>
 
